@@ -1,9 +1,7 @@
 package com.escalab.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -12,33 +10,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-//import javax.validation.constraints.Size;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "venta")
 public class Venta {
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idVenta;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_vendedor", nullable = false, foreignKey = @ForeignKey(name = "PK_vendedor "))
+	@JoinColumn( name = "id_vendedor", nullable = false , foreignKey = @ForeignKey(name = "FK_venta_vendedor"))
 	private Vendedor vendedor;
-
+	
 	@ManyToOne
-	@JoinColumn(name = "id_clienter", nullable = false, foreignKey = @ForeignKey(name = "PK_cliente "))
+	@JoinColumn( name = "id_cliente", nullable = false , foreignKey = @ForeignKey(name = "FK_venta_cliente"))
 	private Cliente cliente;
-	
-	@OneToMany(mappedBy = "producto", cascade = {CascadeType.ALL},orphanRemoval = true)
-	private List<CompraProducto> CompraProducto;
-	
+		
+	@Size(min = 1, max = 9, message = "Valor debe tener minimo 1 caracteres")
 	@Column(name = "costo", nullable = true, length = 9)
 	private double costo;
-
-	private LocalDateTime fecha;
+	
+	private LocalDateTime fecha_venta;
 
 	public Integer getIdVenta() {
 		return idVenta;
@@ -64,14 +60,6 @@ public class Venta {
 		this.cliente = cliente;
 	}
 
-	public List<CompraProducto> getCompraProducto() {
-		return CompraProducto;
-	}
-
-	public void setCompraProducto(List<CompraProducto> compraProducto) {
-		CompraProducto = compraProducto;
-	}
-
 	public double getCosto() {
 		return costo;
 	}
@@ -80,12 +68,37 @@ public class Venta {
 		this.costo = costo;
 	}
 
-	public LocalDateTime getFecha() {
-		return fecha;
+	public LocalDateTime getFecha_venta() {
+		return fecha_venta;
 	}
 
-	public void setFecha(LocalDateTime fecha) {
-		this.fecha = fecha;
+	public void setFecha_venta(LocalDateTime fecha_venta) {
+		this.fecha_venta = fecha_venta;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idVenta == null) ? 0 : idVenta.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Venta other = (Venta) obj;
+		if (idVenta == null) {
+			if (other.idVenta != null)
+				return false;
+		} else if (!idVenta.equals(other.idVenta))
+			return false;
+		return true;
 	}
 	
 }

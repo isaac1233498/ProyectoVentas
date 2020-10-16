@@ -58,5 +58,5 @@ public class Marca {
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
-	
+
 }

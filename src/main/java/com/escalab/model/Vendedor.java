@@ -12,24 +12,24 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "idSupervisor")
+@Table(name = "vendedor")
 public class Vendedor {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idVendedor;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_supervisor", nullable = false, foreignKey = @ForeignKey(name = "FK_supervisor"))
-	private Supervisor supervisor;
+	@JoinColumn( name = "id_supervisor", nullable = false , foreignKey = @ForeignKey(name = "FK_verdedor_supervisor"))
+	private Supervisor supervidor;
 	
 	@Size(min = 3, message = "Nombres debe tener minimo 3 caracteres")
-	@Column(name = "nombre_vendedor", nullable = false, length = 70)
-	private String nombre_vendedor;
-
-	@Size(min = 9, max = 9, message = "Telefono debe tener 9 caracteres")
-	@Column(name = "tel_vendedor", nullable = true, length = 9)
-	private String tel_vendedor;
+	@Column(name = "nombre", nullable = false, length = 70)
+	private String nombre;
+	
+	@Size(min = 3, max = 150, message = "Dirección debe tener minimo 3 caracteres")
+	@Column(name = "direccion", nullable = true, length = 150)
+	private String direccion;
 
 	public Integer getIdVendedor() {
 		return idVendedor;
@@ -39,28 +39,28 @@ public class Vendedor {
 		this.idVendedor = idVendedor;
 	}
 
-	public Supervisor getSupervisor() {
-		return supervisor;
+	public Supervisor getSupervidor() {
+		return supervidor;
 	}
 
-	public void setSupervisor(Supervisor supervisor) {
-		this.supervisor = supervisor;
+	public void setSupervidor(Supervisor supervidor) {
+		this.supervidor = supervidor;
 	}
 
-	public String getNombre_vendedor() {
-		return nombre_vendedor;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setNombre_vendedor(String nombre_vendedor) {
-		this.nombre_vendedor = nombre_vendedor;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getTel_vendedor() {
-		return tel_vendedor;
+	public String getDireccion() {
+		return direccion;
 	}
 
-	public void setTel_vendedor(String tel_vendedor) {
-		this.tel_vendedor = tel_vendedor;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 	
